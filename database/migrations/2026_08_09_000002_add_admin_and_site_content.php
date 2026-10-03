@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration;use Illuminate\Database\Schema\Blueprint;use Illuminate\Support\Facades\Schema;
+return new class extends Migration{public function up():void{Schema::table('users',fn(Blueprint $t)=>$t->boolean('is_admin')->default(false)->index());Schema::create('site_contents',function(Blueprint $t){$t->id();$t->string('group')->index();$t->string('key')->unique();$t->string('label');$t->longText('value')->nullable();$t->string('type')->default('text');$t->unsignedSmallInteger('sort_order')->default(0);$t->timestamps();});}public function down():void{Schema::dropIfExists('site_contents');Schema::table('users',fn(Blueprint $t)=>$t->dropColumn('is_admin'));}};

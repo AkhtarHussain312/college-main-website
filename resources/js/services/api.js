@@ -1,0 +1,11 @@
+import axios from 'axios';
+const api=axios.create({baseURL:'/api',headers:{Accept:'application/json'}});
+api.defaults.headers.common['X-CSRF-TOKEN']=document.querySelector('meta[name="csrf-token"]')?.content;
+export const getCollegeContent=()=>api.get('/college-content');
+export const getEvents=(params={})=>api.get('/events',{params});
+export const getEvent=(slug)=>api.get(`/events/${encodeURIComponent(slug)}`);
+export const sendInquiry=(data)=>api.post('/inquiries',data);
+export const submitApplication=(data)=>api.post('/applications',data);
+export const sendContactMessage=(data)=>api.post('/contact-messages',data);
+export const sendChatMessage=(data)=>api.post('/chat',data);
+export const adminApi={login:(data)=>api.post('/admin/login',data),me:()=>api.get('/admin/me'),logout:()=>api.post('/admin/logout'),list:(type,params={})=>api.get(`/admin/${type}`,{params}),create:(type,data)=>api.post(`/admin/${type}`,data),update:(type,id,data)=>data instanceof FormData?api.post(`/admin/${type}/${id}`,data):api.put(`/admin/${type}/${id}`,data),remove:(type,id)=>api.delete(`/admin/${type}/${id}`),content:()=>api.get('/admin/site-content'),saveContent:(id,value)=>value instanceof FormData?api.post(`/admin/site-content/${id}`,value):api.put(`/admin/site-content/${id}`,{value})};

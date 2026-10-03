@@ -1,0 +1,1 @@
+.application-filters{display:grid;grid-template-columns:minmax(200px,1fr) minmax(160px,.6fr) auto;gap:15px;align-items:end}.application-filters label{font-size:10px;font-weight:800;margin-bottom:6px}.application-filters .btn{height:44px}@media(max-width:700px){.application-filters{grid-template-columns:1fr}.application-filters .btn{width:100%}}

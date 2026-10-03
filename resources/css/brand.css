@@ -1,0 +1,13 @@
+.logo-mark {
+  overflow: hidden;
+  background: #fff;
+  border-color: #77c6ce;
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  object-fit: contain;
+}

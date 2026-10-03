@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Controllers\Admin;use App\Http\Controllers\Controller;use App\Models\ContactMessage;use Illuminate\Http\{JsonResponse,Request};
+class ContactMessageController extends Controller{public function index():JsonResponse{$page=ContactMessage::latest()->paginate(20);$page->setCollection($page->getCollection()->map(fn($x)=>array_merge($x->toArray(),['title'=>$x->subject,'description'=>$x->message])));return response()->json(['data'=>$page]);}public function update(Request $request,ContactMessage $message):JsonResponse{$message->update($request->validate(['message'=>'required|string|max:5000','status'=>'required|in:new,read,replied,closed']));return response()->json(['data'=>$message]);}}

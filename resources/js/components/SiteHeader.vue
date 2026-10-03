@@ -1,0 +1,11 @@
+<script setup>
+import {computed} from 'vue';
+import {useRoute} from 'vue-router';
+
+const props=defineProps({active:{type:String,default:'home'},site:{type:Object,default:()=>({})}});
+const route=useRoute();
+const sectionByHash={'#about-us':'about us','#admissions':'admissions','#clinical-training':'clinical training','#campus-life':'campus life','#news-and-events':'news & events'};
+const currentActive=computed(()=>route.path==='/'?(sectionByHash[route.hash]||props.active):props.active);
+</script>
+<template><div class="topbar">{{site.admissions_banner||'Admissions Open for 2026 — Start Your Nursing Career Today'}} <router-link to="/apply">Apply Now <i class="bi bi-arrow-right"></i></router-link></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm"><div class="container"><router-link class="navbar-brand d-flex align-items-center gap-2" to="/"><span class="brand-mark logo-mark"><img class="brand-logo" src="/logo.png" :alt="`${site.college_short_name||site.college_name||'College'} logo`"></span><span>{{site.nav_brand_title||site.college_short_name||site.college_name||'College'}}<small>{{site.nav_brand_subtitle||site.college_name||'College'}}</small></span></router-link><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button><div id="nav" class="collapse navbar-collapse"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li v-for="item in ['Home','About Us','Programs','Faculty','Admissions','Clinical Training','Campus Life','News & Events','Contact']" :key="item" class="nav-item"><router-link v-if="['Home','Programs','Faculty','Contact','News & Events'].includes(item)" class="nav-link" :class="{active:item.toLowerCase()===currentActive}" :to="item==='Home'?'/':item==='Programs'?'/programs':item==='Faculty'?'/faculty':item==='News & Events'?'/news-events':'/contact'">{{item}}</router-link><a v-else class="nav-link" :class="{active:item.toLowerCase()===currentActive}" :href="'/#'+item.toLowerCase().replaceAll(' ','-').replace('&','and')">{{item}}</a></li><li><router-link class="btn btn-primary ms-lg-3" to="/apply">Apply Now</router-link></li></ul></div></div></nav></template>

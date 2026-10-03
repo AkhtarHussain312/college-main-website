@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Resources;use Illuminate\Http\Request;use Illuminate\Http\Resources\Json\JsonResource;
+class ProgramResource extends JsonResource{public function toArray(Request $request):array{return['id'=>$this->id,'name'=>$this->name,'slug'=>$this->slug,'duration'=>$this->duration,'description'=>$this->description,'fees'=>$this->whenLoaded('fees',fn()=>$this->fees->where('is_active',true)->values()->map(fn($fee)=>['id'=>$fee->id,'type'=>$fee->fee_type,'amount'=>$fee->amount,'currency'=>$fee->currency,'basis'=>$fee->billing_basis,'notes'=>$fee->notes])),'image_url'=>$this->image_path?asset('storage/'.$this->image_path):null];}}

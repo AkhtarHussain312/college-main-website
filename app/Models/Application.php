@@ -1,0 +1,3 @@
+<?php
+namespace App\Models;use Illuminate\Database\Eloquent\Model;use Illuminate\Database\Eloquent\Relations\BelongsTo;
+class Application extends Model{protected $fillable=['reference','program_id','first_name','last_name','date_of_birth','gender','email','phone','national_id','address','city','country','highest_qualification','institution','graduation_year','grade_percentage','statement','transcript_path','identity_document_path','status','admin_notes','submitted_at'];protected function casts():array{return['date_of_birth'=>'date','submitted_at'=>'datetime','grade_percentage'=>'decimal:2'];}public function program():BelongsTo{return $this->belongsTo(Program::class);}}
