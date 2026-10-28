@@ -30,7 +30,7 @@ defineProps({
           <ul class="footer-nav list-unstyled">
             <li><router-link to="/about">About Us</router-link></li>
             <li><router-link to="/faculty">Faculty Directory</router-link></li>
-            <li><router-link to="/#campus-life">Campus Life</router-link></li>
+            <li><router-link to="/campus-life">Campus Life</router-link></li>
             <li><router-link to="/contact">Direct Inquiries</router-link></li>
           </ul>
         </div>
@@ -40,6 +40,9 @@ defineProps({
           <ul class="footer-nav list-unstyled">
             <li><router-link to="/programs">Academic Pathways</router-link></li>
             <li><router-link to="/apply">Online Application</router-link></li>
+            <li><a href="/track">Track Application Status</a></li>
+            <li><a href="/merit-lists">Merit Lists & Downloads</a></li>
+            <li><router-link to="/admissions">Admission Steps</router-link></li>
             <li><router-link to="/news-events">News & Campus Events</router-link></li>
             <li><router-link to="/contact">Talk to Admissions</router-link></li>
           </ul>

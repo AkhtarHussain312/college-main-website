@@ -2,11 +2,20 @@
 @php($active = 'news')
 @section('content')
 <main class="news-index">
-  <section class="news-index-hero"><div class="container"><span>NEWS & EVENTS</span><h1>Latest and Previous News</h1><p>Search announcements, events, achievements, and campus updates from {{ $site['college_short_name'] ?? $collegeName }}.</p></div></section>
-  <section class="section">
+  <section class="section section-compact pt-4 pt-md-5">
     <div class="container">
-      <div class="news-toolbar">
-        <div><h2>All News</h2><p>{{ $events->total() }} {{ $events->total() === 1 ? 'result' : 'results' }}</p></div>
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb custom-breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="bi bi-house-door me-1"></i>Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">News & Events</li>
+        </ol>
+      </nav>
+      <div class="news-toolbar mt-0 mb-4">
+        <div>
+          <span class="eyebrow">CAMPUS BULLETINS</span>
+          <h1 class="page-title mb-1">Latest & Previous News</h1>
+          <p class="text-muted mb-0">{{ $events->total() }} {{ $events->total() === 1 ? 'bulletin found' : 'bulletins found' }}</p>
+        </div>
         <form class="news-search" method="get" action="{{ url('/news-events') }}"><i class="bi bi-search"></i><input name="search" value="{{ $search }}" type="search" class="form-control" placeholder="Search news..." aria-label="Search news and events"></form>
       </div>
       @if($events->count())

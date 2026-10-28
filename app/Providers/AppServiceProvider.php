@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $logo = public_path('logo.png');
         $ico = public_path('favicon.ico');
         if (file_exists($logo)) {
-            if (!file_exists($ico) || @filesize($ico) !== @filesize($logo)) {
+            if (! file_exists($ico) || @filesize($ico) !== @filesize($logo)) {
                 @copy($logo, $ico);
             }
         }

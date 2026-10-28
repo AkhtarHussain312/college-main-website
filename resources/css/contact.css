@@ -1,1 +1,868 @@
-.contact-page{--contact-blue:#123f87;--contact-navy:#071d3b;--contact-green:#27b96f;color:#0c1930}.contact-conversation{padding:75px 0 60px;background:linear-gradient(135deg,#fff 65%,#f1f5fa)}.contact-kicker,.contact-heading>span{display:block;color:var(--contact-blue);font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:10px}.contact-conversation h1{font-size:54px;line-height:1.02;font-weight:800;letter-spacing:-2px;max-width:600px}.contact-conversation p{max-width:550px;color:#627084;line-height:1.7}.hero-contact-actions{display:flex;gap:10px;margin:25px 0 15px}.contact-promises{display:flex;flex-wrap:wrap;gap:18px;color:#536174;font-size:11px}.contact-promises span:before{content:'•';color:var(--contact-blue);margin-right:7px}.contact-phone-art{position:relative;width:min(100%,470px);height:350px;margin:auto;display:grid;place-items:center}.orbit{position:absolute;border:1px solid #d7e1ed;border-radius:50%}.orbit-one{width:330px;height:330px}.orbit-two{width:250px;height:250px}.phone{position:relative;width:145px;height:265px;background:#10264a;border:7px solid #08162d;border-radius:27px;transform:rotate(8deg);box-shadow:0 25px 45px #142d5530;z-index:2;padding:9px}.phone:before{content:'';position:absolute;top:6px;left:43px;width:47px;height:8px;background:#08162d;border-radius:0 0 8px 8px}.phone-screen{height:100%;border-radius:16px;background:linear-gradient(145deg,#f3f8ff,#dbe8f9);display:grid;place-items:center}.phone-screen i{display:grid;place-items:center;width:66px;height:66px;border-radius:50%;background:var(--contact-green);color:#fff;font-size:37px;box-shadow:0 8px 25px #27b96f55}.floating-contact{position:absolute;width:55px;height:55px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:23px;z-index:3;box-shadow:0 12px 25px #102b5550}.floating-contact.mail{right:55px;top:75px;background:#168896}.floating-contact.pin{right:45px;bottom:45px;background:#244f9d}.floating-contact.chat{left:45px;top:95px;background:#2458a8}.contact-quick-grid{margin-top:45px}.quick-contact-card{height:100%;display:flex;flex-direction:column;padding:22px;border:1px solid #dbe2ea;border-radius:10px;background:#fff;color:#0c1930;transition:.2s}.quick-contact-card:hover{border-color:#8caad4;transform:translateY(-3px);box-shadow:0 12px 25px #142b5010}.quick-contact-card>i{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#e8f0ff;color:var(--contact-blue);font-size:18px}.quick-contact-card.whatsapp>i{background:#dcf8e9;color:var(--contact-green)}.quick-contact-card h2{font-size:17px;margin:16px 0 5px}.quick-contact-card b{font-size:12px;overflow-wrap:anywhere}.quick-contact-card span{margin-top:auto;padding-top:18px;color:var(--contact-blue);font-size:11px;font-weight:700}.contact-departments{padding:70px 0;background:#fff}.contact-heading{margin-bottom:30px}.contact-heading h2{font-size:32px;font-weight:800;margin-bottom:7px}.contact-heading p{color:#718094}.department-card{height:100%;display:flex;gap:18px;border:1px solid #dae2ea;border-radius:11px;padding:22px}.department-card>i{flex:none;width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:#eaf1ff;color:var(--contact-blue);font-size:20px}.department-card h3{font-size:17px;margin:2px 0}.department-card p{font-size:11px;color:#718094;margin:0}.department-card b{display:block;font-size:22px;margin:8px 0 13px}.contact-whatsapp{padding:68px 0;background:linear-gradient(135deg,#e9fff5,#d9f8eb)}.whatsapp-card{text-align:center;height:100%;background:#fff;border:1px solid #cfe7dc;border-radius:10px;padding:22px;box-shadow:0 8px 20px #1868450c}.whatsapp-card>i{width:47px;height:47px;margin:auto;display:grid;place-items:center;border-radius:50%;background:#dcf8e9;color:var(--contact-green);font-size:22px}.whatsapp-card h3{font-size:15px;margin:13px 0 3px}.whatsapp-card b{font-size:13px}.whatsapp-card p{font-size:11px;color:#718094}.whatsapp-card a{display:block;background:var(--contact-green);border-radius:6px;color:#fff;padding:8px;font-size:11px;font-weight:700}.contact-message-section{padding:75px 0;background:#fff}.reference-contact-form{border:1px solid #dde4ec;border-radius:12px;padding:30px}.reference-contact-form h2{font-size:31px;font-weight:800}.reference-contact-form>p{font-size:12px;color:#718094}.reference-contact-form label{font-size:10px;font-weight:700;margin-bottom:5px}.reference-contact-form .form-control,.reference-contact-form .form-select{min-height:46px}.secure-note{display:block;margin-top:12px;color:#728092;font-size:9px}.direct-panel{position:relative;height:100%;min-height:500px;overflow:hidden;background:linear-gradient(145deg,#0b2448,#07172f);border-radius:12px;padding:30px;color:#fff}.direct-panel:after{content:'';position:absolute;width:280px;height:280px;border:1px solid #ffffff14;border-radius:50%;right:-120px;bottom:-100px;box-shadow:0 0 0 28px #ffffff08,0 0 0 55px #ffffff05}.direct-panel h2{font-size:23px;font-weight:800;margin-bottom:28px}.direct-panel>div{display:flex;gap:13px;margin:19px 0;position:relative;z-index:1}.direct-panel>div>i{color:#4ea6ff}.direct-panel span{display:flex;flex-direction:column;font-size:10px;color:#aebbd0}.direct-panel b{font-size:13px;color:#fff;margin-top:4px;overflow-wrap:anywhere}.direct-panel>small{display:inline-flex;align-items:center;gap:6px;background:#0b5946;padding:6px 9px;border-radius:20px}.direct-panel>small i{width:7px;height:7px;border-radius:50%;background:#38dd8c}.contact-facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:35px;padding:20px;background:#f5f7fb;border-radius:11px}.contact-facts>div{display:flex;justify-content:center;align-items:center;gap:13px;padding:8px 20px;border-right:1px solid #dfe5ec}.contact-facts>div:last-child{border:0}.contact-facts>div>i{width:42px;height:42px;border-radius:50%;background:#e6efff;color:var(--contact-blue);display:grid;place-items:center;font-size:18px}.contact-facts span{display:flex;flex-direction:column;font-size:10px;color:#657488}.contact-facts b{font-size:17px;color:#0c1930}.contact-faq{padding:65px 0;background:#fafbfd}.contact-faq .accordion{max-width:900px;margin:auto}.contact-faq .accordion-item{border:1px solid #dde4ec;border-radius:7px!important;margin-bottom:9px;overflow:hidden}.contact-faq .accordion-button{font-size:13px;font-weight:700;box-shadow:none}.contact-faq .accordion-body{color:#647286;font-size:12px;line-height:1.7}.contact-final{position:relative;overflow:hidden;padding:58px 0;background:linear-gradient(115deg,#17499b,#0a2550);color:#fff}.contact-final:before,.contact-final:after{content:'';position:absolute;width:250px;height:250px;background:#ffffff09;border-radius:50%}.contact-final:before{left:-80px;top:-140px}.contact-final:after{right:-70px;bottom:-180px}.contact-final .container{position:relative;z-index:1}.contact-final h2{font-size:30px;font-weight:800}.contact-final p{color:#c6d4e8}.contact-final .btn{margin:5px}@media(max-width:991px){.contact-conversation h1{font-size:46px}.contact-phone-art{height:300px}.direct-panel{min-height:auto}.contact-facts{grid-template-columns:1fr}.contact-facts>div{justify-content:flex-start;border-right:0;border-bottom:1px solid #dfe5ec}.contact-facts>div:last-child{border:0}}@media(max-width:575px){.contact-conversation{padding-top:50px}.contact-conversation h1{font-size:38px}.hero-contact-actions{align-items:stretch;flex-direction:column}.contact-phone-art{height:260px;transform:scale(.85)}.contact-quick-grid{margin-top:20px}.department-card{padding:17px}.department-card b{font-size:18px}.reference-contact-form{padding:20px}.contact-heading h2{font-size:27px}}
+/* ==========================================================================
+   Dir College of Nursing - Contact Page Styles
+   Optimized Above-the-Fold Layout, Streamlined Form & Medical Palette
+   ========================================================================== */
+
+:root {
+  --contact-blue: #0284c7;
+  --contact-blue-hover: #0369a1;
+  --contact-navy: #071f33;
+  --contact-navy-dark: #031525;
+  --contact-green: #10b981;
+  --contact-green-hover: #059669;
+  --contact-slate: #475569;
+  --contact-border: #e2e8f0;
+  --contact-border-hover: #cbd5e1;
+  --contact-bg-soft: #f8fafc;
+}
+
+.contact-page {
+  color: #0f172a;
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   1. Compact Hero & Illustration Section
+   ========================================================================== */
+.contact-conversation {
+  padding: 24px 0 20px;
+  background: linear-gradient(135deg, #ffffff 60%, #f0f7ff 100%);
+  border-bottom: 1px solid var(--contact-border);
+}
+
+.contact-kicker,
+.contact-heading > span {
+  display: inline-block;
+  color: var(--contact-blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.contact-conversation h1 {
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  line-height: 1.2;
+  font-weight: 800;
+  color: var(--contact-navy);
+  letter-spacing: -0.02em;
+  max-width: 580px;
+  margin: 4px 0 8px;
+}
+
+.contact-conversation p {
+  max-width: 540px;
+  color: var(--contact-slate);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.hero-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0 10px;
+}
+
+.hero-contact-actions .btn {
+  padding: 9px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.hero-contact-actions .btn-primary {
+  background-color: var(--contact-blue);
+  border-color: var(--contact-blue);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
+
+.hero-contact-actions .btn-primary:hover {
+  background-color: var(--contact-blue-hover);
+  border-color: var(--contact-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+}
+
+.hero-contact-actions .btn-outline-dark {
+  border-color: #cbd5e1;
+  color: var(--contact-navy);
+  background-color: #ffffff;
+}
+
+.hero-contact-actions .btn-outline-dark:hover {
+  border-color: var(--contact-green);
+  color: var(--contact-green-hover);
+  background-color: #f0fdf4;
+  transform: translateY(-1px);
+}
+
+.contact-promises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #64748b;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.contact-promises span::before {
+  content: '✓';
+  color: var(--contact-green);
+  font-weight: 800;
+  margin-right: 5px;
+}
+
+/* Compact Phone / Messaging Illustration */
+.contact-phone-art {
+  position: relative;
+  width: min(100%, 250px);
+  height: 140px;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px dashed #cbd5e1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-one {
+  width: 140px;
+  height: 140px;
+  opacity: 0.7;
+}
+
+.orbit-two {
+  width: 100px;
+  height: 100px;
+  opacity: 0.5;
+}
+
+.phone {
+  position: relative;
+  width: 78px;
+  height: 130px;
+  background: var(--contact-navy);
+  border: 4px solid var(--contact-navy-dark);
+  border-radius: 16px;
+  transform: rotate(5deg);
+  box-shadow: 0 12px 28px rgba(7, 31, 51, 0.18);
+  z-index: 2;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.phone:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 23px;
+  width: 24px;
+  height: 4px;
+  background: var(--contact-navy-dark);
+  border-radius: 0 0 4px 4px;
+}
+
+.phone-screen {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+  display: grid;
+  place-items: center;
+}
+
+.phone-screen i {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--contact-green);
+  color: #ffffff;
+  font-size: 19px;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.floating-contact {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 14px;
+  z-index: 3;
+  box-shadow: 0 6px 14px rgba(7, 31, 51, 0.16);
+  transition: transform 0.25s ease;
+}
+
+.floating-contact:hover {
+  transform: scale(1.12);
+}
+
+.floating-contact.mail {
+  right: 18px;
+  top: 12px;
+  background: #0284c7;
+}
+
+.floating-contact.pin {
+  right: 12px;
+  bottom: 10px;
+  background: #0ea5e9;
+}
+
+.floating-contact.chat {
+  left: 14px;
+  top: 22px;
+  background: #2563eb;
+}
+
+/* Compact Quick Grid (Call, WhatsApp, Email, Visit) */
+.contact-quick-grid {
+  margin-top: 16px;
+}
+
+.quick-contact-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 15px;
+  border: 1px solid var(--contact-border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quick-contact-card:hover {
+  border-color: var(--contact-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(7, 31, 51, 0.08);
+}
+
+.quick-contact-card > i {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #e0f2fe;
+  color: var(--contact-blue);
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.quick-contact-card.whatsapp > i {
+  background: #dcfce7;
+  color: var(--contact-green);
+}
+
+.quick-contact-card h2 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--contact-navy);
+  margin: 0 0 3px;
+}
+
+.quick-contact-card b {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  overflow-wrap: anywhere;
+  margin-bottom: 6px;
+}
+
+.quick-contact-card span {
+  margin-top: auto;
+  color: var(--contact-blue);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.quick-contact-card.whatsapp span {
+  color: var(--contact-green);
+}
+
+/* ==========================================================================
+   2. Direct Department Contact Cards
+   ========================================================================== */
+.contact-departments {
+  padding: 26px 0 24px;
+  background: var(--contact-bg-soft);
+  border-bottom: 1px solid var(--contact-border);
+}
+
+.contact-heading {
+  margin-bottom: 16px;
+}
+
+.contact-heading h2 {
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 800;
+  color: var(--contact-navy);
+  margin: 2px 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.contact-heading p {
+  color: var(--contact-slate);
+  font-size: 13px;
+  margin: 0;
+}
+
+.department-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--contact-border);
+  border-radius: 12px;
+  padding: 15px 16px;
+  background: #ffffff;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.department-card:hover {
+  border-color: var(--contact-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(7, 31, 51, 0.08);
+}
+
+.department-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.department-card-header > div {
+  min-width: 0;
+}
+
+.department-card > i,
+.department-card-icon {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #e0f2fe;
+  color: var(--contact-blue);
+  font-size: 17px;
+}
+
+.department-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--contact-navy);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.department-card p {
+  font-size: 11.5px;
+  color: #64748b;
+  margin: 2px 0 0;
+  line-height: 1.35;
+}
+
+.department-card b {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--contact-navy);
+  margin: 10px 0 12px;
+  letter-spacing: 0.02em;
+}
+
+.department-card .btn {
+  margin-top: auto;
+  font-size: 12px;
+  padding: 7px 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   3. Streamlined Contact Form Section
+   ========================================================================== */
+.contact-message-section {
+  padding: 30px 0 34px;
+  background: #ffffff;
+}
+
+.reference-contact-form {
+  border: 1px solid var(--contact-border);
+  border-radius: 16px;
+  padding: 24px 26px;
+  background: #ffffff;
+  box-shadow: 0 6px 24px rgba(7, 31, 51, 0.04);
+}
+
+.reference-contact-form h2 {
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  font-weight: 800;
+  color: var(--contact-navy);
+  margin: 2px 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.reference-contact-form > p {
+  font-size: 13px;
+  color: var(--contact-slate);
+  margin-bottom: 18px;
+}
+
+.reference-contact-form label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.reference-contact-form .form-control,
+.reference-contact-form .form-select {
+  min-height: 44px;
+  font-size: 13.5px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #0f172a;
+  background-color: #ffffff;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.reference-contact-form .form-control::placeholder {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.reference-contact-form .form-control:hover,
+.reference-contact-form .form-select:hover {
+  border-color: #94a3b8;
+}
+
+.reference-contact-form .form-control:focus,
+.reference-contact-form .form-select:focus {
+  border-color: var(--contact-blue);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  outline: none;
+}
+
+.reference-contact-form .form-select {
+  cursor: pointer;
+}
+
+.reference-contact-form textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.reference-contact-form .btn-primary {
+  background-color: var(--contact-blue);
+  border-color: var(--contact-blue);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+  transition: all 0.2s ease;
+}
+
+.reference-contact-form .btn-primary:hover {
+  background-color: var(--contact-blue-hover);
+  border-color: var(--contact-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);
+}
+
+.secure-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.secure-note i {
+  color: var(--contact-green);
+  font-size: 13px;
+}
+
+/* Direct Support Aside Panel */
+.direct-panel {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(145deg, #071f33 0%, #0d3859 100%);
+  border-radius: 16px;
+  padding: 24px 22px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.direct-panel::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  right: -70px;
+  bottom: -50px;
+  pointer-events: none;
+}
+
+.direct-panel h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.direct-panel > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.direct-panel > div > i {
+  color: #38bdf8;
+  font-size: 16px;
+  margin-top: 2px;
+  flex: none;
+}
+
+.direct-panel span {
+  display: flex;
+  flex-direction: column;
+  font-size: 10.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.direct-panel b {
+  font-size: 13px;
+  color: #ffffff;
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.direct-panel-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.direct-panel-link:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+.direct-panel > small {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(16, 185, 129, 0.16);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.pulse-indicator {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* ==========================================================================
+   4. Extra WhatsApp, Facts & Final Callout (Vue SPA Support)
+   ========================================================================== */
+.contact-whatsapp {
+  padding: 30px 0 28px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-bottom: 1px solid var(--contact-border);
+}
+
+.whatsapp-card {
+  text-align: center;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 18px 16px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.whatsapp-card > i {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: var(--contact-green);
+  font-size: 20px;
+}
+
+.whatsapp-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--contact-navy);
+  margin: 0 0 4px;
+}
+
+.whatsapp-card b {
+  font-size: 12px;
+  color: #0f172a;
+}
+
+.whatsapp-card p {
+  font-size: 11px;
+  color: #64748b;
+  margin: 4px 0 12px;
+}
+
+.whatsapp-card a {
+  margin-top: auto;
+  display: inline-block;
+  background: var(--contact-green);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 7px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.whatsapp-card a:hover {
+  background: var(--contact-green-hover);
+  color: #ffffff;
+}
+
+.contact-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 24px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid var(--contact-border);
+  border-radius: 12px;
+}
+
+.contact-facts > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  border-right: 1px solid var(--contact-border);
+}
+
+.contact-facts > div:last-child {
+  border: 0;
+}
+
+.contact-facts > div > i {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  color: var(--contact-blue);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  flex: none;
+}
+
+.contact-facts span {
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.contact-facts b {
+  font-size: 13.5px;
+  color: var(--contact-navy);
+  font-weight: 700;
+}
+
+.contact-final {
+  position: relative;
+  overflow: hidden;
+  padding: 42px 0;
+  background: linear-gradient(115deg, #0284c7 0%, #071f33 100%);
+  color: #ffffff;
+}
+
+.contact-final h2 {
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.contact-final p {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.contact-final .btn {
+  margin: 4px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   5. FAQ Section
+   ========================================================================== */
+.contact-faq {
+  padding: 30px 0 34px;
+  background: var(--contact-bg-soft);
+  border-top: 1px solid var(--contact-border);
+}
+
+.contact-faq .accordion {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.contact-faq .accordion-item {
+  border: 1px solid var(--contact-border);
+  border-radius: 10px !important;
+  margin-bottom: 9px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.contact-faq .accordion-button {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--contact-navy);
+  padding: 13px 16px;
+  box-shadow: none;
+}
+
+.contact-faq .accordion-button:not(.collapsed) {
+  color: var(--contact-blue);
+  background-color: #f0f9ff;
+}
+
+.contact-faq .accordion-body {
+  color: var(--contact-slate);
+  font-size: 12.5px;
+  line-height: 1.65;
+  padding: 13px 16px;
+}
+
+/* ==========================================================================
+   6. Responsive Overrides
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  .contact-conversation {
+    padding: 20px 0 16px;
+  }
+  .contact-phone-art {
+    margin-top: 10px;
+    height: 120px;
+  }
+  .reference-contact-form {
+    padding: 20px;
+  }
+  .direct-panel {
+    margin-top: 8px;
+    min-height: auto;
+  }
+  .contact-facts {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .contact-facts > div {
+    justify-content: flex-start;
+    border-right: 0;
+    border-bottom: 1px solid var(--contact-border);
+    padding-bottom: 8px;
+  }
+  .contact-facts > div:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .contact-conversation h1 {
+    font-size: 1.45rem;
+  }
+  .hero-contact-actions {
+    flex-direction: column;
+  }
+  .hero-contact-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .quick-contact-card {
+    padding: 12px 14px;
+  }
+  .department-card {
+    padding: 14px;
+  }
+}

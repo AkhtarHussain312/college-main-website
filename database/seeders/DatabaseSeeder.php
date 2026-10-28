@@ -25,9 +25,11 @@ class DatabaseSeeder extends Seeder
         ])->save();
 
         $programs = [
-            ['Pre-medical', 'pre-medical', '2 Years', 'Focused science preparation for students aiming toward medical and healthcare careers.', 25000, 180000, 20000],
-            ['Pre-engineering', 'pre-engineering', '2 Years', 'Strong mathematics and physics foundations for future engineering pathways.', 25000, 180000, 20000],
-            ['Computer Science', 'computer-science', '2 Years', 'Modern computing fundamentals for students interested in software, data, and technology.', 25000, 180000, 20000],
+            ['BS Nursing', 'bs-nursing', '4 Years', 'Comprehensive 4-year undergraduate degree accredited by Pakistan Nursing Council (PNC), combining clinical hospital rotations and advanced simulation training.', 35000, 195000, 25000],
+            ['Post RN BSN', 'post-rn-bsn', '2 Years', 'Specialized degree program for practicing registered nurses seeking academic advancement, leadership skills, and career promotion.', 30000, 160000, 20000],
+            ['General Nursing', 'general-nursing', '3 Years', 'Structured nursing diploma focused on bedside patient care, medical-surgical fundamentals, and clinical ward experience.', 25000, 140000, 18000],
+            ['LHV', 'lhv', '2 Years', 'Essential training for maternal and child healthcare, community midwifery, and primary healthcare services.', 20000, 120000, 15000],
+            ['Nursing Diploma', 'nursing-diploma', '2 Years', 'Foundational clinical nursing diploma preparing certified assistants for acute and specialized patient care wards.', 20000, 110000, 12000],
         ];
 
         foreach ($programs as $i => $p) {

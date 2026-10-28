@@ -19,7 +19,7 @@
           <li><a href="{{ url('/about') }}">About Us</a></li>
           <li><a href="{{ url('/#about-us') }}">Leadership</a></li>
           <li><a href="{{ url('/faculty') }}">Faculty Directory</a></li>
-          <li><a href="{{ url('/#clinical-training') }}">Campus Life</a></li>
+          <li><a href="{{ url('/campus-life') }}">Campus Life</a></li>
           <li><a href="{{ url('/contact') }}">Direct Inquiries</a></li>
         </ul>
       </div>
@@ -29,7 +29,9 @@
         <ul class="footer-nav list-unstyled">
           <li><a href="{{ url('/programs') }}">Academic Pathways</a></li>
           <li><a href="{{ url('/apply') }}">Online Application</a></li>
-          <li><a href="{{ url('/#admissions') }}">Admission Steps</a></li>
+          <li><a href="{{ url('/track') }}">Track Application Status</a></li>
+          <li><a href="{{ url('/merit-lists') }}">Merit Lists & Downloads</a></li>
+          <li><a href="{{ url('/admissions') }}">Admission Steps</a></li>
           <li><a href="{{ url('/news-events') }}">News & Campus Events</a></li>
           <li><a href="{{ url('/contact') }}">Talk to Admissions</a></li>
         </ul>

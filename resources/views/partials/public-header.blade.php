@@ -6,6 +6,8 @@
       <span class="topbar-text">{{ $site['admissions_banner'] ?? 'Admissions Open for Fall 2026 - Apply Today' }}</span>
     </div>
     <div class="topbar-actions d-none d-md-flex align-items-center gap-3">
+      <a href="{{ url('/merit-lists') }}" class="topbar-link"><i class="bi bi-file-earmark-arrow-down"></i> Merit Lists</a>
+      <a href="{{ url('/track') }}" class="topbar-link"><i class="bi bi-search"></i> Track Application</a>
       @if(!empty($site['college_phone']))
         <a href="tel:{{ $site['college_phone'] }}" class="topbar-link"><i class="bi bi-telephone"></i> {{ $site['college_phone'] }}</a>
       @endif
@@ -32,12 +34,12 @@
       <div id="nav" class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link {{ $active === 'home' ? 'active' : '' }}" href="{{ url('/') }}">Home</a></li>
-          <li class="nav-item"><a class="nav-link {{ $active === 'about' ? 'active' : '' }}" href="{{ url('/about') }}">About Us</a></li>
           <li class="nav-item"><a class="nav-link {{ $active === 'programs' ? 'active' : '' }}" href="{{ url('/programs') }}">Programs</a></li>
           <li class="nav-item"><a class="nav-link {{ $active === 'faculty' ? 'active' : '' }}" href="{{ url('/faculty') }}">Faculty</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url('/#admissions') }}">Admissions</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url('/#clinical-training') }}">Campus Life</a></li>
+          <li class="nav-item"><a class="nav-link {{ $active === 'admissions' ? 'active' : '' }}" href="{{ url('/admissions') }}">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link {{ $active === 'campus-life' ? 'active' : '' }}" href="{{ url('/campus-life') }}">Campus Life</a></li>
           <li class="nav-item"><a class="nav-link {{ $active === 'news' ? 'active' : '' }}" href="{{ url('/news-events') }}">News & Events</a></li>
+          <li class="nav-item"><a class="nav-link {{ $active === 'about' ? 'active' : '' }}" href="{{ url('/about') }}">About Us</a></li>
           <li class="nav-item"><a class="nav-link {{ $active === 'contact' ? 'active' : '' }}" href="{{ url('/contact') }}">Contact</a></li>
           <li class="nav-item nav-btn-item"><a class="btn btn-primary nav-cta-btn {{ $active === 'apply' ? 'active' : '' }}" href="{{ url('/apply') }}">Apply Now</a></li>
         </ul>

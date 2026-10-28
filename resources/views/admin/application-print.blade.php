@@ -59,11 +59,11 @@
       <div class="grid">
         <div class="field">
           <label>Program</label>
-          <div>{{ $application->program->name }}</div>
+          <div>{{ $application->program?->name ?? 'General / Unassigned' }}</div>
         </div>
         <div class="field">
           <label>Duration</label>
-          <div>{{ $application->program->duration }}</div>
+          <div>{{ $application->program?->duration ?? '-' }}</div>
         </div>
       </div>
     </section>

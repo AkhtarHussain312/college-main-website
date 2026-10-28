@@ -29,10 +29,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="theme-color" content="#071f33">
   <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|manrope:500,600,700,800" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  @vite(['resources/css/app.css', 'resources/css/about.css', 'resources/css/brand.css', 'resources/css/fees.css', 'resources/css/contact.css', 'resources/css/event.css', 'resources/js/app.js'])
+  <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|manrope:500,600,700,800&display=swap" rel="stylesheet">
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <script type="application/ld+json">
     {!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
   </script>
@@ -42,7 +40,7 @@
   @yield('content')
   @include('partials.public-footer')
   <div id="dcn-chat-widget"></div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  @stack('scripts')
 </body>
 </html>
 

@@ -2,22 +2,20 @@
 @php($active = 'faculty')
 @section('content')
 <main class="faculty-page">
-  <section class="faculty-hero">
+  <section class="section faculty-directory pt-4 pt-md-5">
     <div class="container">
-      <span class="eyebrow text-info">OUR FACULTY</span>
-      <h1>Meet the Academic Team</h1>
-      <p>Dedicated faculty members guiding students with subject expertise, discipline, and personal academic support.</p>
-    </div>
-  </section>
-
-  <section class="section faculty-directory">
-    <div class="container">
-      <div class="faculty-intro">
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb custom-breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="bi bi-house-door me-1"></i>Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Faculty</li>
+        </ol>
+      </nav>
+      <div class="faculty-intro mb-4">
         <div>
           <span class="eyebrow">FACULTY DIRECTORY</span>
-          <h2>Teachers Who Shape Confident Students</h2>
+          <h1 class="page-title mb-1">Meet the Academic Team</h1>
         </div>
-        <p>Faculty profiles are managed from the admin dashboard, so this page stays updated as the academic team grows.</p>
+        <p>Dedicated faculty members guiding students with subject expertise, discipline, and clinical supervision.</p>
       </div>
 
       @if($faculty->count())

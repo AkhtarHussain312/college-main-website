@@ -22,16 +22,26 @@
 <main class="contact-page">
   <section class="contact-conversation">
     <div class="container">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-4">
         <div class="col-lg-6">
           <span class="contact-kicker">{{ $site['contact_eyebrow'] ?? 'GET IN TOUCH' }}</span>
           <h1>{{ $site['contact_title'] ?? 'Let us Start a Conversation' }}</h1>
           <p>{{ $site['contact_description'] ?? 'Get clear guidance from our admissions and student support teams whenever you need it.' }}</p>
-          <div class="hero-contact-actions"><a href="{{ $phoneHref }}" class="btn btn-primary">Call Us</a><a href="{{ $whatsappHref }}" target="_blank" rel="noopener" class="btn btn-outline-dark"><i class="bi bi-whatsapp"></i> Chat on WhatsApp</a></div>
+          <div class="hero-contact-actions">
+            <a href="{{ $phoneHref }}" class="btn btn-primary"><i class="bi bi-telephone-fill me-1"></i> Call Us</a>
+            <a href="{{ $whatsappHref }}" target="_blank" rel="noopener" class="btn btn-outline-dark"><i class="bi bi-whatsapp me-1 text-success"></i> Chat on WhatsApp</a>
+          </div>
           <div class="contact-promises"><span>Fast response</span><span>Friendly support</span><span>Multiple contact options</span></div>
         </div>
         <div class="col-lg-6">
-          <div class="contact-phone-art"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="phone"><div class="phone-screen"><i class="bi bi-whatsapp"></i></div></div><span class="floating-contact mail"><i class="bi bi-envelope-fill"></i></span><span class="floating-contact pin"><i class="bi bi-geo-alt-fill"></i></span><span class="floating-contact chat"><i class="bi bi-chat-left-text-fill"></i></span></div>
+          <div class="contact-phone-art">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="phone"><div class="phone-screen"><i class="bi bi-whatsapp"></i></div></div>
+            <span class="floating-contact mail"><i class="bi bi-envelope-fill"></i></span>
+            <span class="floating-contact pin"><i class="bi bi-geo-alt-fill"></i></span>
+            <span class="floating-contact chat"><i class="bi bi-chat-left-text-fill"></i></span>
+          </div>
         </div>
       </div>
       <div class="row g-3 contact-quick-grid">
@@ -48,7 +58,21 @@
       <div class="contact-heading"><span>DIRECT CONTACT</span><h2>Choose the Right Number</h2><p>Connect directly with the team best placed to help.</p></div>
       <div class="row g-3">
         @foreach($departments as $department)
-          <div class="col-md-6"><article class="department-card"><i class="bi {{ $department['icon'] }}"></i><div><h3>{{ $department['name'] }}</h3><p>{{ $department['detail'] }}</p><b>{{ $department['phone'] }}</b><a href="tel:{{ preg_replace('/[^+\d]/', '', $department['phone']) }}" class="btn btn-primary btn-sm">Call Now</a></div></article></div>
+          <div class="col-sm-6 col-lg-3">
+            <article class="department-card">
+              <div class="department-card-header">
+                <span class="department-card-icon"><i class="bi {{ $department['icon'] }}"></i></span>
+                <div>
+                  <h3>{{ $department['name'] }}</h3>
+                  <p>{{ $department['detail'] }}</p>
+                </div>
+              </div>
+              <b>{{ $department['phone'] }}</b>
+              <a href="tel:{{ preg_replace('/[^+\d]/', '', $department['phone']) }}" class="btn btn-primary btn-sm">
+                <i class="bi bi-telephone-fill me-1"></i> Call Now
+              </a>
+            </article>
+          </div>
         @endforeach
       </div>
     </div>
@@ -66,17 +90,63 @@
             @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
             @if(isset($errors) && $errors->any())<div class="alert alert-danger">Please check the highlighted fields and try again.</div>@endif
             <div class="row g-3">
-              <div class="col-md-6"><label>Full name *</label><input name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" required>@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
-              <div class="col-md-6"><label>Email address *</label><input name="email" value="{{ old('email') }}" type="email" class="form-control @error('email') is-invalid @enderror" required>@error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
-              <div class="col-md-6"><label>Phone number</label><input name="phone" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror">@error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
-              <div class="col-md-6"><label>Department / enquiry type *</label><select name="subject" class="form-select @error('subject') is-invalid @enderror" required><option value="" disabled {{ old('subject') ? '' : 'selected' }}>Select a department</option>@foreach(['Admissions','Programs and Courses','Fee Structure','Scholarships','Student Support','Campus Visit','General Inquiry'] as $subject)<option {{ old('subject') === $subject ? 'selected' : '' }}>{{ $subject }}</option>@endforeach</select>@error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
-              <div class="col-12"><label>Message *</label><textarea name="message" class="form-control @error('message') is-invalid @enderror" rows="6" required>{{ old('message') }}</textarea>@error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+              <div class="col-md-6">
+                <label for="contact-name">Full name *</label>
+                <input id="contact-name" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="e.g. Muhammad Ahmad" required>
+                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+              </div>
+              <div class="col-md-6">
+                <label for="contact-email">Email address *</label>
+                <input id="contact-email" name="email" value="{{ old('email') }}" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com" required>
+                @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+              </div>
+              <div class="col-md-6">
+                <label for="contact-phone">Phone number</label>
+                <input id="contact-phone" name="phone" value="{{ old('phone') }}" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="e.g. +92 300 1234567">
+                @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
+              </div>
+              <div class="col-md-6">
+                <label for="contact-subject">Department / Enquiry type *</label>
+                <select id="contact-subject" name="subject" class="form-select @error('subject') is-invalid @enderror" required>
+                  <option value="" disabled {{ old('subject') ? '' : 'selected' }}>Choose department or enquiry topic...</option>
+                  @foreach(['Admissions','Programs and Courses','Fee Structure','Scholarships','Student Support','Campus Visit','General Inquiry'] as $subject)
+                    <option value="{{ $subject }}" {{ old('subject') === $subject ? 'selected' : '' }}>{{ $subject }}</option>
+                  @endforeach
+                </select>
+                @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
+              </div>
+              <div class="col-12">
+                <label for="contact-message">Message *</label>
+                <textarea id="contact-message" name="message" class="form-control @error('message') is-invalid @enderror" rows="4" placeholder="How can we assist you today? Please provide any details..." required>{{ old('message') }}</textarea>
+                @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
+              </div>
             </div>
-            <button class="btn btn-primary w-100 mt-3">Send Message <i class="bi bi-send"></i></button>
-            <small class="secure-note"><i class="bi bi-lock"></i> Your information is sent securely and used only to respond to your enquiry.</small>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Send Message <i class="bi bi-send ms-1"></i></button>
+            <small class="secure-note"><i class="bi bi-shield-check"></i> Your information is sent securely and used only to respond to your enquiry.</small>
           </form>
         </div>
-        <div class="col-lg-4"><aside class="direct-panel"><h2>Prefer to Talk Directly?</h2><div><i class="bi bi-telephone"></i><span>Phone<b>{{ $phone }}</b></span></div><div><i class="bi bi-whatsapp"></i><span>WhatsApp<b>{{ $whatsapp }}</b></span></div><div><i class="bi bi-envelope"></i><span>Email<b>{{ $site['college_email'] ?? 'admissions@example.edu' }}</b></span></div><div><i class="bi bi-clock"></i><span>Office Hours<b>{{ $site['contact_office_hours'] ?? 'Monday-Friday, 8:30 AM-5:00 PM' }}</b></span></div><small><i></i> Open during office hours</small></aside></div>
+        <div class="col-lg-4">
+          <aside class="direct-panel">
+            <h2>Prefer to Talk Directly?</h2>
+            <div>
+              <i class="bi bi-telephone-fill"></i>
+              <span>Phone<a href="{{ $phoneHref }}" class="direct-panel-link"><b>{{ $phone }}</b></a></span>
+            </div>
+            <div>
+              <i class="bi bi-whatsapp"></i>
+              <span>WhatsApp<a href="{{ $whatsappHref }}" target="_blank" rel="noopener" class="direct-panel-link"><b>{{ $whatsapp }}</b></a></span>
+            </div>
+            <div>
+              <i class="bi bi-envelope-fill"></i>
+              <span>Email<a href="mailto:{{ $site['college_email'] ?? 'admissions@example.edu' }}" class="direct-panel-link"><b>{{ $site['college_email'] ?? 'admissions@example.edu' }}</b></a></span>
+            </div>
+            <div>
+              <i class="bi bi-clock-fill"></i>
+              <span>Office Hours<b>{{ $site['contact_office_hours'] ?? 'Monday-Friday, 8:30 AM-5:00 PM' }}</b></span>
+            </div>
+            <small><i class="pulse-indicator"></i> Open during office hours</small>
+          </aside>
+        </div>
       </div>
     </div>
   </section>

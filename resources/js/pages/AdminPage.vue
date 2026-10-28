@@ -10,12 +10,14 @@ const router = useRouter();
 const adminSite = ref({});
 const user = ref(null);
 const checking = ref(true);
-const login = ref({ email: 'akhtar@website.com', password: '', remember: false });
+const login = ref({ email: '', password: '', remember: false });
 const loginError = ref('');
 function getInitialTab() {
   const path = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
   if (path === '/admin/contact-page' || path.endsWith('/contact-page')) return 'contact-page';
   if (path === '/admin/home-page' || path.endsWith('/home-page') || path === '/admin') return 'site-content';
+  if (path === '/admin/users' || path.endsWith('/users')) return 'users';
+  if (path === '/admin/profile' || path.endsWith('/profile')) return 'profile';
   if (path.startsWith('/admin/')) {
     const segment = path.replace('/admin/', '');
     return segment || 'site-content';
@@ -32,16 +34,63 @@ const notice = ref('');
 const savingGroup = ref('');
 const savedFields = ref({});
 
+const profileForm = ref({
+  name: '',
+  email: '',
+  current_password: '',
+  password: '',
+  password_confirmation: '',
+});
+const profileBusy = ref(false);
+const profileError = ref('');
+const profileSuccess = ref('');
+
+function initProfileForm() {
+  if (user.value) {
+    profileForm.value.name = user.value.name || '';
+    profileForm.value.email = user.value.email || '';
+    profileForm.value.current_password = '';
+    profileForm.value.password = '';
+    profileForm.value.password_confirmation = '';
+    profileError.value = '';
+    profileSuccess.value = '';
+  }
+}
+
+async function saveProfile() {
+  profileBusy.value = true;
+  profileError.value = '';
+  profileSuccess.value = '';
+  try {
+    const res = await adminApi.updateProfile(profileForm.value);
+    user.value = { ...user.value, ...res.data.data };
+    profileSuccess.value = res.data.message || 'Credentials updated successfully.';
+    profileForm.value.current_password = '';
+    profileForm.value.password = '';
+    profileForm.value.password_confirmation = '';
+    notice.value = 'Login credentials updated successfully.';
+  } catch (e) {
+    profileError.value =
+      Object.values(e.response?.data?.errors || {}).flat().join(' ') ||
+      e.response?.data?.message ||
+      'Unable to update credentials.';
+  } finally {
+    profileBusy.value = false;
+  }
+}
+
 const applicationFilters = ref({ program_id: '', year: '' });
 const filterOptions = ref({ programs: [], years: [] });
 const feePrograms = ref([]);
 
 const menuSections = [
   {
-    title: 'ADMINISTRATION',
+    title: 'ADMINISTRATION & USERS',
     items: [
       ['site-content', 'Home Page Content', 'bi-layout-text-window', '/admin/home-page'],
       ['contact-page', 'Contact Settings', 'bi-telephone', '/admin/contact-page'],
+      ['users', 'User Accounts', 'bi-people-fill', '/admin/users'],
+      ['profile', 'Admin Credentials', 'bi-shield-lock', '/admin/profile'],
     ],
   },
   {
@@ -50,6 +99,7 @@ const menuSections = [
       ['programs', 'Programs', 'bi-mortarboard', '/admin/programs'],
       ['about-sections', 'About Sections', 'bi-card-text', '/admin/about-sections'],
       ['fees', 'Fee Structure', 'bi-cash-stack', '/admin/fees'],
+      ['merit-lists', 'Merit Lists & Downloads', 'bi-file-earmark-arrow-down', '/admin/merit-lists'],
       ['faculty', 'Faculty', 'bi-people', '/admin/faculty'],
       ['events', 'News & Events', 'bi-calendar-event', '/admin/events'],
       ['milestones', 'Admissions Steps', 'bi-signpost-split', '/admin/milestones'],
@@ -73,10 +123,16 @@ function syncFromRoute() {
     tab.value = 'contact-page';
   } else if (path === '/admin/home-page' || path.endsWith('/home-page') || path === '/admin') {
     tab.value = 'site-content';
+  } else if (path === '/admin/users' || path.endsWith('/users')) {
+    tab.value = 'users';
+  } else if (path === '/admin/profile' || path.endsWith('/profile')) {
+    tab.value = 'profile';
+    initProfileForm();
   } else if (path.startsWith('/admin/')) {
     const segment = path.replace('/admin/', '');
     if (tabs.some((t) => t[0] === segment)) {
       tab.value = segment;
+      if (segment === 'profile') initProfileForm();
     }
   }
 }
@@ -139,6 +195,16 @@ const fields = {
     ['icon', 'Bootstrap icon'],
     ['sort_order', 'Order', 'number'],
   ],
+  'merit-lists': [
+    ['title', 'Document / List Title'],
+    ['category', 'Category', 'select'],
+    ['session_year', 'Academic Session (e.g. 2026-2027)'],
+    ['program_id', 'Program', 'program'],
+    ['file', 'Document File (PDF / Word)', 'file'],
+    ['description', 'Description / Instructions', 'textarea'],
+    ['sort_order', 'Order', 'number'],
+    ['is_published', 'Published', 'checkbox'],
+  ],
   applications: [
     ['status', 'Application status', 'select'],
     ['admin_notes', 'Admin notes', 'textarea'],
@@ -150,6 +216,12 @@ const fields = {
   inquiries: [
     ['status', 'Status', 'select'],
   ],
+  users: [
+    ['name', 'Full Name'],
+    ['email', 'Email Address'],
+    ['password', 'Login Password', 'password'],
+    ['is_admin', 'Administrator Privileges', 'checkbox'],
+  ],
 };
 
 const statusChoices = computed(() =>
@@ -159,15 +231,29 @@ const statusChoices = computed(() =>
     ? ['new', 'read', 'replied', 'closed']
     : tab.value === 'about-sections'
     ? ['left', 'right']
+    : tab.value === 'merit-lists'
+    ? ['merit_list', 'prospectus', 'form', 'roll_number_slip', 'academic_calendar']
     : ['new', 'contacted', 'enrolled', 'closed']
 );
+
+const exportApplicationsUrl = computed(() => {
+  const params = new URLSearchParams();
+  if (applicationFilters.value.program_id) params.append('program_id', applicationFilters.value.program_id);
+  if (applicationFilters.value.year) params.append('year', applicationFilters.value.year);
+  const qs = params.toString();
+  return `/api/admin/applications/export${qs ? '?' + qs : ''}`;
+});
 
 const currentFields = computed(() => fields[tab.value] || []);
 
 onMounted(async () => {
   syncFromRoute();
   try {
-    adminSite.value = (await getCollegeContent()).data.data.site || {};
+    const collegeContent = (await getCollegeContent()).data.data;
+    adminSite.value = collegeContent.site || {};
+    if (collegeContent.programs?.length && !feePrograms.value.length) {
+      feePrograms.value = collegeContent.programs.map((p) => ({ id: p.id, name: p.name }));
+    }
     document.title = `Admin | ${adminSite.value.college_name || 'College Website'}`;
   } catch {}
   try {
@@ -177,6 +263,24 @@ onMounted(async () => {
     checking.value = false;
   }
 });
+
+async function ensureProgramsLoaded() {
+  if (feePrograms.value.length) return;
+  try {
+    const res = await adminApi.list('programs');
+    const progs = res.data.data?.data || res.data.data || [];
+    if (progs.length) {
+      feePrograms.value = progs.map((p) => ({ id: p.id, name: p.name }));
+    }
+  } catch {
+    try {
+      const fallback = (await getCollegeContent()).data.data.programs || [];
+      if (fallback.length) {
+        feePrograms.value = fallback.map((p) => ({ id: p.id, name: p.name }));
+      }
+    } catch {}
+  }
+}
 
 async function signIn() {
   busy.value = true;
@@ -200,6 +304,9 @@ async function signOut() {
 async function selectTab(value) {
   tab.value = value;
   editing.value = null;
+  if (value === 'profile') {
+    initProfileForm();
+  }
   const tabItem = tabs.find((t) => t[0] === value);
   const targetUrl = tabItem?.[3] || `/admin/${value}`;
   if (router) {
@@ -210,8 +317,12 @@ async function selectTab(value) {
   await load();
 }
 
-async function load() {
-  if (busy.value) return;
+async function load(force = false) {
+  if (busy.value && !force) return;
+  if (tab.value === 'profile') {
+    initProfileForm();
+    return;
+  }
   busy.value = true;
   try {
     if (['site-content', 'contact-page'].includes(tab.value)) {
@@ -223,7 +334,9 @@ async function load() {
       );
       items.value = response.data.data.data;
       if (tab.value === 'applications') filterOptions.value = response.data.filters;
-      if (tab.value === 'fees') feePrograms.value = response.data.options?.programs || [];
+      if (response.data.options?.programs) {
+        feePrograms.value = response.data.options.programs;
+      }
     }
   } finally {
     busy.value = false;
@@ -245,12 +358,47 @@ async function add() {
     currency: 'PKR',
     image_position: 'left',
   };
+  if (tab.value === 'users') {
+    editing.value = {
+      name: '',
+      email: '',
+      password: '',
+      is_admin: true,
+    };
+  }
+  if (tab.value === 'fees') {
+    editing.value.program_id = feePrograms.value[0]?.id || '';
+  }
+  if (tab.value === 'merit-lists') {
+    editing.value.category = 'merit_list';
+    editing.value.program_id = '';
+    editing.value.session_year = '2026-2027';
+  }
+  if ((tab.value === 'fees' || tab.value === 'merit-lists') && feePrograms.value.length === 0) {
+    await ensureProgramsLoaded();
+    if (tab.value === 'fees' && !editing.value.program_id) {
+      editing.value.program_id = feePrograms.value[0]?.id || '';
+    }
+  }
   await nextTick();
   Modal.getOrCreateInstance(document.getElementById('contentEditorModal')).show();
 }
 
 async function edit(item) {
-  editing.value = { image_position: 'left', ...item };
+  if (tab.value === 'users') {
+    editing.value = {
+      id: item.id,
+      name: item.name,
+      email: item.email,
+      password: '',
+      is_admin: Boolean(item.is_admin),
+    };
+  } else {
+    editing.value = { image_position: 'left', ...item };
+  }
+  if ((tab.value === 'fees' || tab.value === 'merit-lists') && feePrograms.value.length === 0) {
+    await ensureProgramsLoaded();
+  }
   if (tab.value === 'applications') {
     await nextTick();
     Modal.getOrCreateInstance(document.getElementById('applicationReviewModal')).show();
@@ -264,15 +412,30 @@ async function save() {
   busy.value = true;
   notice.value = '';
   try {
-    let payload = editing.value;
+    let payload = { ...editing.value };
+    if (tab.value === 'users') {
+      if (!payload.password) {
+        delete payload.password;
+      }
+    }
+    if (tab.value === 'merit-lists' && (!payload.program_id || payload.program_id === '')) {
+      payload.program_id = null;
+    }
     if (editing.value.imageFile) {
       payload = new FormData();
       Object.entries(editing.value).forEach(([k, v]) => {
-        if (!['imageFile', 'image_url', 'image_path', 'previewUrl'].includes(k) && v !== null && v !== undefined) {
+        if (!['imageFile', 'image_url', 'image_path', 'previewUrl', 'file_url'].includes(k) && v !== null && v !== undefined) {
+          if (k === 'program_id' && (v === '' || v === 'null' || !v)) {
+            return;
+          }
           payload.append(k, typeof v === 'boolean' ? (v ? '1' : '0') : v);
         }
       });
-      payload.append('image', editing.value.imageFile);
+      if (tab.value === 'merit-lists') {
+        payload.append('file', editing.value.imageFile);
+      } else {
+        payload.append('image', editing.value.imageFile);
+      }
     }
     if (editing.value.id) await adminApi.update(tab.value, editing.value.id, payload);
     else await adminApi.create(tab.value, payload);
@@ -280,19 +443,38 @@ async function save() {
     else Modal.getInstance(document.getElementById('contentEditorModal'))?.hide();
     editing.value = null;
     notice.value = 'Changes saved successfully.';
-    await load();
   } catch (e) {
     notice.value = Object.values(e.response?.data?.errors || {}).flat().join(' ') || 'Unable to save changes.';
   } finally {
     busy.value = false;
   }
+  await load(true);
 }
 
 async function remove(item) {
-  if (['applications', 'messages', 'inquiries'].includes(tab.value)) return;
-  if (!confirm(`Delete “${item.name || item.title}”? This cannot be undone.`)) return;
-  await adminApi.remove(tab.value, item.id);
-  await load();
+  if (tab.value === 'inquiries') return;
+  const label = item.name || item.title || (item.reference ? `Application (${item.reference})` : (item.email ? `Message from ${item.email}` : 'this item'));
+  if (!confirm(`Delete “${label}”? This cannot be undone.`)) return;
+  busy.value = true;
+  notice.value = '';
+  try {
+    await adminApi.remove(tab.value, item.id);
+
+    // 1. Instantly remove record from UI state
+    items.value = items.value.filter((x) => x.id !== item.id);
+    if (tab.value === 'programs') {
+      feePrograms.value = feePrograms.value.filter((p) => p.id !== item.id);
+    }
+
+    notice.value = `“${label}” was deleted successfully.`;
+  } catch (e) {
+    notice.value = e.response?.data?.message || `Unable to delete “${label}”.`;
+  } finally {
+    busy.value = false;
+  }
+
+  // 2. Freshly reload and synchronize records from server
+  await load(true);
 }
 
 const MULTILINE_KEYS = [
@@ -641,11 +823,16 @@ function chooseImage(target, event) {
             <span>View Website</span>
           </a>
           <div class="topbar-user-badge">
-            <div class="user-avatar-circle">{{ (user.email || 'A').charAt(0).toUpperCase() }}</div>
-            <div class="user-meta-info">
-              <span class="user-meta-name">{{ adminSite.college_short_name || 'Admin' }}</span>
+            <div class="user-avatar-circle" @click="selectTab('profile')" style="cursor: pointer;" title="Admin credentials">
+              {{ (user.name || user.email || 'A').charAt(0).toUpperCase() }}
+            </div>
+            <div class="user-meta-info" @click="selectTab('profile')" style="cursor: pointer;" title="Admin credentials">
+              <span class="user-meta-name">{{ user.name || adminSite.college_short_name || 'Admin' }}</span>
               <span class="user-meta-email">{{ user.email }}</span>
             </div>
+            <button class="signout-btn" @click="selectTab('profile')" title="Admin credentials & security">
+              <i class="bi bi-shield-lock"></i>
+            </button>
             <button class="signout-btn" @click="signOut" title="Sign out">
               <i class="bi bi-box-arrow-right"></i>
             </button>
@@ -1033,7 +1220,119 @@ function chooseImage(target, event) {
           </div>
         </template>
 
-        <!-- 2. Other Data Tabs (Programs, About, Fees, Faculty, Events, etc.) -->
+        <!-- 3. Admin Credentials & Profile Security Settings -->
+        <template v-else-if="tab === 'profile'">
+          <div class="admin-page-header">
+            <div>
+              <h1>Admin Credentials & Security</h1>
+              <p>Manage your personal administrator login details, contact email, and account password.</p>
+            </div>
+          </div>
+
+          <div class="content-groups">
+            <section class="admin-section-card max-w-2xl">
+              <div class="admin-section-header flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-100">
+                <div class="admin-section-title-wrap">
+                  <h2 class="admin-section-title">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    Login Credentials
+                  </h2>
+                  <p class="admin-section-desc text-muted small">
+                    Changes take effect immediately for your next sign in session.
+                  </p>
+                </div>
+              </div>
+
+              <div v-if="profileError" class="alert alert-danger my-3">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ profileError }}
+              </div>
+              <div v-if="profileSuccess" class="alert alert-success my-3">
+                <i class="bi bi-check-circle-fill me-2"></i> {{ profileSuccess }}
+              </div>
+
+              <form @submit.prevent="saveProfile" class="py-2">
+                <div class="row g-4">
+                  <div class="col-12">
+                    <label class="form-label fw-bold small">Administrator Full Name</label>
+                    <input
+                      v-model="profileForm.name"
+                      type="text"
+                      class="form-control"
+                      placeholder="e.g. System Administrator"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label fw-bold small">Login Email Address</label>
+                    <input
+                      v-model="profileForm.email"
+                      type="email"
+                      class="form-control"
+                      placeholder="admin@example.com"
+                      required
+                      autocomplete="username"
+                    />
+                    <small class="form-text text-muted">This email address is used to sign in to the admin portal.</small>
+                  </div>
+
+                  <div class="col-12 pt-3 border-top">
+                    <h6 class="fw-bold text-slate-800 mb-1"><i class="bi bi-key me-1"></i> Change Account Password</h6>
+                    <p class="text-muted small mb-3">Leave password fields blank if you do not wish to change your password.</p>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label fw-bold small">Current Password</label>
+                    <input
+                      v-model="profileForm.current_password"
+                      type="password"
+                      class="form-control"
+                      placeholder="Enter current password to authorize password change"
+                      autocomplete="current-password"
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold small">New Password</label>
+                    <input
+                      v-model="profileForm.password"
+                      type="password"
+                      class="form-control"
+                      placeholder="Minimum 8 characters"
+                      autocomplete="new-password"
+                      minlength="8"
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold small">Confirm New Password</label>
+                    <input
+                      v-model="profileForm.password_confirmation"
+                      type="password"
+                      class="form-control"
+                      placeholder="Repeat new password"
+                      autocomplete="new-password"
+                      minlength="8"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-top d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+                  <span class="text-muted small">
+                    <i class="bi bi-info-circle me-1"></i> Your login session will remain active after saving.
+                  </span>
+                  <button type="submit" class="btn btn-primary" :disabled="profileBusy">
+                    <span v-if="profileBusy" class="spinner-border spinner-border-sm me-2"></span>
+                    <i v-else class="bi bi-check-lg me-1"></i>
+                    Update Credentials
+                  </button>
+                </div>
+              </form>
+            </section>
+          </div>
+        </template>
+
+        <!-- 4. Other Data Tabs (Programs, About, Fees, Faculty, Events, Users, etc.) -->
         <template v-else>
           <div class="admin-title">
             <div>
@@ -1045,7 +1344,7 @@ function chooseImage(target, event) {
               class="btn btn-primary"
               @click="add"
             >
-              <i class="bi bi-plus-lg"></i> Add New
+              <i class="bi bi-plus-lg"></i> {{ tab === 'users' ? 'Add New User' : 'Add New' }}
             </button>
           </div>
 
@@ -1086,6 +1385,14 @@ function chooseImage(target, event) {
             >
               <i class="bi bi-x-circle"></i> Clear filters
             </button>
+            <a
+              :href="exportApplicationsUrl"
+              class="btn btn-success ms-auto"
+              title="Download all applications in CSV / Excel format"
+              target="_blank"
+            >
+              <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export to Excel / CSV
+            </a>
           </section>
 
           <!-- Records Table -->
@@ -1103,26 +1410,50 @@ function chooseImage(target, event) {
                 <tr v-for="item in items" :key="item.id">
                   <td>
                     <b>{{ item.name || item.title }}</b>
+                    <span v-if="tab === 'users' && user && item.id === user.id" class="badge bg-primary-subtle text-primary border border-primary-subtle ms-1" style="font-size: 11px;">You</span>
                     <small v-if="item.email">{{ item.email }}</small>
                     <small v-if="item.reference">{{ item.reference }}</small>
                   </td>
                   <td>
-                    {{
-                      item.description ||
-                      item.excerpt ||
-                      item.body ||
-                      item.qualification ||
-                      item.program ||
-                      item.duration
-                    }}
+                    <div v-if="tab === 'merit-lists'" class="d-flex flex-column gap-1">
+                      <div class="d-flex flex-wrap gap-1 align-items-center">
+                        <span class="badge bg-light text-dark border">{{ (item.category || 'document').replaceAll('_', ' ') }}</span>
+                        <span v-if="item.program" class="badge bg-primary-subtle text-primary border border-primary-subtle">{{ item.program }}</span>
+                        <span v-else class="badge bg-secondary-subtle text-secondary">General Document</span>
+                        <small v-if="item.session_year" class="text-muted">({{ item.session_year }})</small>
+                      </div>
+                      <small v-if="item.file_size" class="text-muted"><i class="bi bi-paperclip me-1"></i>{{ item.file_size }}</small>
+                    </div>
+                    <div v-else-if="tab === 'users'" class="d-flex flex-column gap-1">
+                      <span class="text-slate-700 small"><i class="bi bi-envelope me-1"></i> {{ item.email }}</span>
+                      <small class="text-muted"><i class="bi bi-clock-history me-1"></i> Created {{ item.created_at }}</small>
+                    </div>
+                    <template v-else>
+                      {{
+                        item.description ||
+                        item.excerpt ||
+                        item.body ||
+                        item.qualification ||
+                        item.program ||
+                        item.duration
+                      }}
+                    </template>
                   </td>
                   <td>
-                    <span class="status">
+                    <span
+                      class="status"
+                      :class="{
+                        'bg-teal-50 text-teal-700 border border-teal-200': tab === 'users' && item.is_admin,
+                        'bg-slate-100 text-slate-700': tab === 'users' && !item.is_admin
+                      }"
+                    >
                       {{
-                        (
-                          item.status ||
-                          ((item.is_active ?? item.is_published) ? 'active' : 'hidden')
-                        ).replaceAll('_', ' ')
+                        tab === 'users'
+                          ? (item.is_admin ? 'Administrator' : 'Staff Member')
+                          : (
+                              item.status ||
+                              ((item.is_active ?? item.is_published) ? 'active' : 'hidden')
+                            ).replaceAll('_', ' ')
                       }}
                     </span>
                   </td>
@@ -1144,8 +1475,10 @@ function chooseImage(target, event) {
                       <i :class="['bi', tab === 'applications' ? 'bi-eye' : 'bi-pencil']"></i>
                     </button>
                     <button
-                      v-if="!['inquiries', 'applications'].includes(tab)"
+                      v-if="tab !== 'inquiries'"
                       class="icon-btn danger"
+                      :title="tab === 'users' && user && item.id === user.id ? 'You cannot delete your own logged-in account' : (tab === 'applications' ? 'Delete application' : 'Delete')"
+                      :disabled="busy || (tab === 'users' && user && item.id === user.id)"
                       @click="remove(item)"
                     >
                       <i class="bi bi-trash"></i>
@@ -1176,9 +1509,9 @@ function chooseImage(target, event) {
         <form @submit.prevent="save">
           <div class="modal-header">
             <div>
-              <span class="review-reference">{{ tabs.find((t) => t[0] === tab)?.[1] }}</span>
+              <span class="review-reference">{{ tab === 'users' ? 'User Accounts' : tabs.find((t) => t[0] === tab)?.[1] }}</span>
               <h2 id="contentEditorTitle" class="modal-title">
-                {{ editing.id ? 'Edit' : 'Add' }} {{ tabs.find((t) => t[0] === tab)?.[1] }}
+                {{ editing.id ? 'Edit' : 'Add' }} {{ tab === 'users' ? 'User Account' : tabs.find((t) => t[0] === tab)?.[1] }}
               </h2>
               <p class="text-muted small mb-0">Manage this record without leaving the current dashboard view.</p>
             </div>
@@ -1204,17 +1537,23 @@ function chooseImage(target, event) {
                   class="form-control"
                   rows="4"
                 />
-                <select
-                  v-else-if="f[2] === 'program'"
-                  v-model="editing[f[0]]"
-                  class="form-select"
-                  required
-                >
-                  <option value="" disabled>Select a program</option>
-                  <option v-for="program in feePrograms" :key="program.id" :value="program.id">
-                    {{ program.name }}
-                  </option>
-                </select>
+                <div v-else-if="f[2] === 'program'">
+                  <select
+                    v-model="editing[f[0]]"
+                    class="form-select"
+                    :required="tab === 'fees'"
+                  >
+                    <option :value="tab === 'merit-lists' ? '' : ''" :disabled="tab === 'fees'">
+                      {{ tab === 'merit-lists' ? '— All Programs / Institutional Document (General) —' : 'Select a program' }}
+                    </option>
+                    <option v-for="program in feePrograms" :key="program.id" :value="program.id">
+                      {{ program.name }}
+                    </option>
+                  </select>
+                  <small v-if="tab === 'merit-lists'" class="form-text text-muted">
+                    {{ feePrograms.length ? 'Select a program for degree-specific merit lists, or choose General for all students.' : 'Loading programs...' }}
+                  </small>
+                </div>
                 <select
                   v-else-if="f[2] === 'select'"
                   v-model="editing[f[0]]"
@@ -1225,30 +1564,51 @@ function chooseImage(target, event) {
                   </option>
                 </select>
                 <template v-else-if="f[2] === 'file'">
-                  <div class="mb-2">
+                  <div v-if="editing.previewUrl && tab !== 'merit-lists'" class="mb-2">
                     <img
-                      v-if="editing.previewUrl || editing.image_url"
                       class="admin-preview rounded"
-                      :src="editing.previewUrl || editing.image_url"
-                      alt="Current image"
+                      :src="editing.previewUrl"
+                      alt="Current preview"
                       style="max-height: 100px; object-fit: cover;"
                     />
+                  </div>
+                  <div v-else-if="editing.imageFile" class="mb-2 text-primary small fw-bold">
+                    <i class="bi bi-file-earmark-check me-1"></i> New file selected: {{ editing.imageFile.name }}
+                  </div>
+                  <div v-else-if="editing.file_url" class="mb-2">
+                    <a :href="editing.file_url" target="_blank" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-file-earmark-pdf me-1"></i> View Uploaded File
+                    </a>
                   </div>
                   <input
                     type="file"
                     class="form-control"
-                    accept="image/jpeg,image/png,image/webp"
+                    :accept="tab === 'merit-lists' ? '.pdf,.doc,.docx,application/pdf,image/*' : 'image/jpeg,image/png,image/webp'"
                     @change="chooseImage(editing, $event)"
                   />
-                  <small class="text-muted">JPG, PNG or WebP, maximum 5 MB.</small>
+                  <small class="text-muted">{{ tab === 'merit-lists' ? 'PDF, Word document, or image (max 25 MB).' : 'JPG, PNG or WebP, maximum 5 MB.' }}</small>
                 </template>
+                <div v-else-if="f[2] === 'password'">
+                  <input
+                    v-model="editing[f[0]]"
+                    type="password"
+                    class="form-control"
+                    :placeholder="editing.id ? 'Leave blank to keep existing password' : 'Enter password (min 8 characters)'"
+                    :required="!editing.id"
+                    minlength="8"
+                    autocomplete="new-password"
+                  />
+                  <small v-if="editing.id" class="form-text text-muted">
+                    Leave blank to keep the current password unchanged.
+                  </small>
+                </div>
                 <label v-else-if="f[2] === 'checkbox'" class="form-check form-switch mt-4">
                   <input
                     v-model="editing[f[0]]"
                     class="form-check-input"
                     type="checkbox"
                   />
-                  Enabled
+                  {{ editing[f[0]] ? 'Enabled' : 'Disabled' }}
                 </label>
                 <input
                   v-else

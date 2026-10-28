@@ -107,6 +107,7 @@ class ChatbotApiTest extends TestCase
 
         Http::assertSent(function ($request) {
             $data = $request->data();
+
             return (str_contains($request->url(), 'gemini-3.8-flash') || str_contains($request->url(), 'gemini-2.5-flash'))
                 && str_contains($request->url(), 'key=mock-gemini-key')
                 && isset($data['system_instruction'])
@@ -183,7 +184,7 @@ class ChatbotApiTest extends TestCase
             'sort_order' => 0,
         ]);
 
-        $service = new ChatbotKnowledgeService();
+        $service = new ChatbotKnowledgeService;
         $context = $service->getDatabaseContext();
 
         $this->assertStringContainsString('Dir College of Nursing & Allied Health Science', $context);

@@ -7,6 +7,7 @@ use App\Models\SiteContent;
 use App\Services\ChatbotKnowledgeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -28,8 +29,8 @@ class ChatbotController extends Controller
         $userMessage = trim($validated['message']);
         $apiKey = config('services.gemini.api_key');
 
-        // Retrieve live database context
-        $databaseContext = $knowledgeService->getDatabaseContext();
+        // Retrieve live database context (cached for 5 minutes to optimize performance)
+        $databaseContext = Cache::remember('chatbot_knowledge_context', 300, fn () => $knowledgeService->getDatabaseContext());
 
         // Contact numbers for fallbacks
         $content = SiteContent::get()->pluck('value', 'key');
@@ -39,6 +40,7 @@ class ChatbotController extends Controller
         // Check if API key is configured
         if (empty($apiKey)) {
             Log::info('Chatbot query received but GEMINI_API_KEY is not set in configuration.');
+
             return response()->json([
                 'reply' => "Thank you for reaching out to Dir College of Nursing (DCN)! For detailed guidance on our programs, fees, and admissions, please contact our admissions office at {$admissionsPhone} or WhatsApp {$whatsapp}.",
             ]);
@@ -46,12 +48,12 @@ class ChatbotController extends Controller
 
         // Construct System Instruction incorporating live database records
         $systemInstruction = "You are the official AI Assistant for Dir College of Nursing (DCN). Use ONLY the following database records to accurately answer student inquiries about fees, programs, and admissions:\n\n"
-            . $databaseContext . "\n\n"
-            . "Guidelines:\n"
-            . "1. Provide direct, helpful, and polite answers using only facts from the database above.\n"
-            . "2. When asked about programs or fees, break down the numbers clearly using bullet points and mention currency (PKR).\n"
-            . "3. If the answer is not contained in the database records, politely direct the student to contact admissions directly at {$admissionsPhone} or via WhatsApp at {$whatsapp}.\n"
-            . "4. Keep replies concise, readable, and structured with clean formatting.";
+            .$databaseContext."\n\n"
+            ."Guidelines:\n"
+            ."1. Provide direct, helpful, and polite answers using only facts from the database above.\n"
+            ."2. When asked about programs or fees, break down the numbers clearly using bullet points and mention currency (PKR).\n"
+            ."3. If the answer is not contained in the database records, politely direct the student to contact admissions directly at {$admissionsPhone} or via WhatsApp at {$whatsapp}.\n"
+            .'4. Keep replies concise, readable, and structured with clean formatting.';
 
         // Build conversation contents (incorporate recent history if present)
         $contents = [];
@@ -60,12 +62,12 @@ class ChatbotController extends Controller
             // Keep recent turns to prevent context overload
             $recent = array_slice($history, -8);
             foreach ($recent as $turn) {
-                if (!is_array($turn)) {
+                if (! is_array($turn)) {
                     continue;
                 }
                 $role = ($turn['role'] ?? '') === 'model' ? 'model' : 'user';
                 $text = $turn['text'] ?? $turn['content'] ?? '';
-                if (!empty($text)) {
+                if (! empty($text)) {
                     $contents[] = [
                         'role' => $role,
                         'parts' => [
@@ -118,7 +120,7 @@ class ChatbotController extends Controller
                     $data = $response->json();
                     $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
-                    if (!empty($reply)) {
+                    if (! empty($reply)) {
                         return response()->json([
                             'reply' => trim($reply),
                         ]);
@@ -129,7 +131,7 @@ class ChatbotController extends Controller
                 // Check if Google's error response recommends a specific model
                 if (preg_match('/models\/([a-zA-Z0-9\.\-_]+)/', $body, $matches)) {
                     $suggestedModel = $matches[1];
-                    if (!in_array($suggestedModel, $modelsToTry)) {
+                    if (! in_array($suggestedModel, $modelsToTry)) {
                         $modelsToTry[] = $suggestedModel;
                     }
                 }

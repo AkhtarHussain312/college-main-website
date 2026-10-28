@@ -1,16 +1,5 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import '../css/application.css';
-import '../css/about.css';
-import '../css/brand.css';
-import '../css/admin-filters.css';
-import '../css/admin-review.css';
-import '../css/admin-modern.css';
-import '../css/fees.css';
-import '../css/contact.css';
-import '../css/event.css';
 import 'bootstrap';
 import App from './App.vue';
 import ChatWidget from './components/ChatWidget.vue';
@@ -28,6 +17,10 @@ const routes = [
   { path: '/about', component: AboutPage },
   { path: '/programs', component: ProgramsPage },
   { path: '/faculty', beforeEnter: () => { window.location.assign('/faculty'); return false; } },
+  { path: '/admissions', beforeEnter: () => { window.location.assign('/admissions'); return false; } },
+  { path: '/campus-life', beforeEnter: () => { window.location.assign('/campus-life'); return false; } },
+  { path: '/merit-lists', beforeEnter: () => { window.location.assign('/merit-lists'); return false; } },
+  { path: '/track', beforeEnter: () => { window.location.assign('/track'); return false; } },
   { path: '/apply', component: ApplyPage },
   { path: '/contact', component: ContactPage },
   { path: '/news-events', component: NewsEventsPage },

@@ -75,7 +75,7 @@ class ChatbotKnowledgeService
                     foreach ($fees as $fee) {
                         $formattedAmount = number_format((float) $fee->amount);
                         $programsBlock .= "  - {$fee->fee_type}: {$fee->currency} {$formattedAmount} ({$fee->billing_basis})";
-                        if (!empty($fee->notes)) {
+                        if (! empty($fee->notes)) {
                             $programsBlock .= " — Note: {$fee->notes}";
                         }
                         $programsBlock .= "\n";
@@ -84,7 +84,7 @@ class ChatbotKnowledgeService
                         }
                     }
                     if ($totalFirstYear > 0) {
-                        $programsBlock .= "  - Approximate Total (First Year): PKR " . number_format($totalFirstYear) . "\n";
+                        $programsBlock .= '  - Approximate Total (First Year): PKR '.number_format($totalFirstYear)."\n";
                     }
                 }
             }
@@ -107,6 +107,8 @@ class ChatbotKnowledgeService
         $admissionsBlock .= "  - Candidates must meet the academic qualifications (such as Matriculation / FSc Pre-Medical / SSC / HSSC science requirements or equivalent).\n";
         $admissionsBlock .= "  - Required documents for online submission: Scanned Academic Transcripts / Certificates and National ID / B-Form / Passport.\n";
         $admissionsBlock .= "  - Online application form url: /apply\n";
+        $admissionsBlock .= "  - Application tracking portal: /track (Applicants can check their real-time application status using their reference number e.g. DCN-2026-XXXXX or CNIC)\n";
+        $admissionsBlock .= "  - Official Merit Lists & College Downloads: /merit-lists (Download official merit lists, fee challan deposit slip, and the 2026-2027 college prospectus)\n";
         $sections[] = $admissionsBlock;
 
         // 4. Institutional Highlights & Campus Overview
@@ -125,12 +127,12 @@ class ChatbotKnowledgeService
         for ($i = 1; $i <= 6; $i++) {
             $q = $content->get("contact_faq_{$i}_question");
             $a = $content->get("contact_faq_{$i}_answer");
-            if (!empty($q) && !empty($a)) {
+            if (! empty($q) && ! empty($a)) {
                 $faqPairs[] = "Q: {$q}\nA: {$a}";
             }
         }
-        if (!empty($faqPairs)) {
-            $faqBlock = "=== 5. FREQUENTLY ASKED QUESTIONS ===\n" . implode("\n\n", $faqPairs) . "\n";
+        if (! empty($faqPairs)) {
+            $faqBlock = "=== 5. FREQUENTLY ASKED QUESTIONS ===\n".implode("\n\n", $faqPairs)."\n";
             $sections[] = $faqBlock;
         }
 

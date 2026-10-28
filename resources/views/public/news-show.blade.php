@@ -1,8 +1,21 @@
 @extends('layouts.public')
 @php($active = 'news')
 @section('content')
-<main class="event-page">
-  <section class="event-hero"><div class="container"><a href="{{ url('/news-events') }}" class="event-back"><i class="bi bi-arrow-left"></i> All News & Events</a><span>NEWS & EVENTS</span><h1>{{ $event->title }}</h1><div class="event-meta"><i class="bi bi-calendar3"></i> {{ optional($event->event_date)->format('F j, Y') ?? 'Latest update' }} <b>-</b> {{ $site['college_short_name'] ?? $collegeName }}</div></div></section>
+<main class="event-page pt-4 pt-md-5">
+  <div class="container mb-3">
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb custom-breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="bi bi-house-door me-1"></i>Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('/news-events') }}">News & Events</a></li>
+        <li class="breadcrumb-item active text-truncate" style="max-width: 320px;" aria-current="page">{{ $event->title }}</li>
+      </ol>
+    </nav>
+    <div class="mb-4">
+      <span class="eyebrow mb-2">CAMPUS UPDATE</span>
+      <h1 class="page-title mb-2">{{ $event->title }}</h1>
+      <div class="event-meta text-muted small"><i class="bi bi-calendar3 me-1"></i> {{ optional($event->event_date)->format('F j, Y') ?? 'Latest update' }} <span class="mx-1">•</span> {{ $site['college_short_name'] ?? $collegeName }}</div>
+    </div>
+  </div>
   <article class="event-article event-detail-layout">
     <div class="container">
       <img class="event-cover" src="{{ $event->image_path ? asset('storage/'.$event->image_path) : asset('images/nursing-hero.png') }}" alt="{{ $event->title }}">

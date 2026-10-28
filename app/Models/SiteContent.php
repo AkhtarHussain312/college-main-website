@@ -1,3 +1,10 @@
 <?php
-namespace App\Models;use Illuminate\Database\Eloquent\Model;
-class SiteContent extends Model{protected $fillable=['group','key','label','value','type','sort_order'];}
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class SiteContent extends Model
+{
+    protected $fillable = ['group', 'key', 'label', 'value', 'type', 'sort_order'];
+}

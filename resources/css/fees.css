@@ -1,1 +1,117 @@
-.fee-breakdown{margin:17px 0;border:1px solid #dce9ed;border-radius:10px;background:#f6fafb;overflow:hidden}.fee-heading{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#e7f3f5;color:#245d71;font-size:10px;font-weight:800}.fee-heading small{font-size:8px;text-transform:uppercase}.fee-rows{padding:5px 12px}.fee-rows>div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #e4ecef;font-size:9px}.fee-rows>div:last-child{border:0}.fee-rows span{color:#647985}.fee-rows b{color:#193f52;text-align:right}.fee-breakdown>p{font-size:8px!important;min-height:0!important;margin:0;padding:8px 12px;border-top:1px solid #e4ecef}.fee-breakdown.compact .fee-rows>div{padding:5px 0}
+/* ==========================================================================
+   Dir College of Nursing - Program Fee Breakdown Styles
+   ========================================================================== */
+
+.fee-breakdown {
+  margin: 16px 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fee-breakdown:hover {
+  border-color: #cbd5e1;
+}
+
+.fee-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  color: #071f33;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.fee-heading span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0284c7;
+}
+
+.fee-heading small {
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fee-rows,
+.fee-list {
+  padding: 4px 14px;
+}
+
+.fee-rows > div,
+.fee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e2e8f0;
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.fee-rows > div:last-child,
+.fee-row:last-child {
+  border-bottom: none;
+}
+
+.fee-rows span,
+.fee-row-label {
+  color: #334155;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+}
+
+.fee-row-basis {
+  font-size: 10.5px;
+  color: #64748b;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.fee-rows b,
+.fee-row-amount {
+  color: #071f33;
+  font-weight: 800;
+  text-align: right;
+  white-space: nowrap;
+  font-feature-settings: 'tnum';
+  font-size: 13px;
+}
+
+.fee-breakdown > p,
+.fee-notes {
+  font-size: 10.5px !important;
+  min-height: 0 !important;
+  margin: 0;
+  padding: 7px 14px;
+  border-top: 1px solid #e2e8f0;
+  color: #64748b;
+  background: #f8fafc;
+  line-height: 1.4;
+}
+
+.fee-breakdown.compact .fee-rows > div,
+.fee-breakdown.compact .fee-row {
+  padding: 6px 0;
+  font-size: 11.5px;
+}
+
+.fee-breakdown-contact {
+  border-style: dashed;
+}
+
+.fee-breakdown-contact .fee-heading {
+  background: #f8fafc;
+}
